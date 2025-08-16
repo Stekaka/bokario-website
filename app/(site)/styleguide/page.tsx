@@ -3,7 +3,7 @@ import { SectionHeading } from '../../../components/SectionHeading'
 import { Button } from '../../../components/Button'
 import { Badge } from '../../../components/Badge'
 import { Card } from '../../../components/Card'
-import { KPI } from '../../../components/KPI'
+import { Stat } from '@/components/Stat'
 import { RoiCalculator } from '../../../components/calculators/RoiCalculator'
 import { BookingsEstimator } from '../../../components/calculators/BookingsEstimator'
 import { ReviewsImpactCalculator } from '../../../components/calculators/ReviewsImpactCalculator'
@@ -179,8 +179,8 @@ export default function StyleguidePage() {
             <div>
               <h3 className="text-h3 text-ink-950 mb-4">Som länkar</h3>
               <div className="flex flex-wrap gap-4">
-                <Button as="a" href="#" size="md">Link Button MD</Button>
-                <Button as="a" href="#" size="lg">Link Button LG</Button>
+                <Button href="#" size="md">Link Button MD</Button>
+                <Button href="#" size="lg">Link Button LG</Button>
               </div>
             </div>
           </div>
@@ -209,7 +209,7 @@ export default function StyleguidePage() {
               <h3 className="text-h3 text-ink-950 mb-3">Standard kort</h3>
               <p className="text-body text-ink-700">Standard kort med e1 skugga som blir e2 vid hover.</p>
             </Card>
-            <Card className="p-6" elevated>
+            <Card className="p-6" variant="elevated">
               <h3 className="text-h3 text-ink-950 mb-3">Elevated kort</h3>
               <p className="text-body text-ink-700">Elevated kort med e2 skugga som blir e3 vid hover.</p>
             </Card>
@@ -226,23 +226,20 @@ export default function StyleguidePage() {
         <div className="container-bk">
           <SectionHeading title="KPI-kort" subtitle="Exempel på KPI-komponenter" />
           <div className="grid md:grid-cols-3 gap-6">
-            <KPI
+            <Stat
               value="+25%"
-              label="Fler samtal"
-              description="Genomsnittlig ökning av samtal från Maps"
-              trend={{ value: 25, isPositive: true }}
+              title="Fler samtal"
+              desc="Genomsnittlig ökning av samtal från Maps"
             />
-            <KPI
+            <Stat
               value="4.8/5"
-              label="Kundnöjdhet"
-              description="Genomsnittligt kundbetyg"
-              trend={{ value: 96, isPositive: true }}
+              title="Kundnöjdhet"
+              desc="Genomsnittligt kundbetyg"
             />
-            <KPI
+            <Stat
               value="+60%"
-              label="Fler bokningar"
-              description="Genomsnittlig ökning av bokningar"
-              trend={{ value: 60, isPositive: true }}
+              title="Fler bokningar"
+              desc="Genomsnittlig ökning av bokningar"
             />
           </div>
         </div>

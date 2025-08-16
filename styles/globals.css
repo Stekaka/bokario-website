@@ -1,0 +1,174 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+  
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: #0A0A0A;
+    color: #FFFFFF;
+    overflow-x: hidden;
+    padding-top: 4rem; /* 64px to compensate for fixed header */
+  }
+  
+  /* Responsive padding for fixed header */
+  @media (min-width: 640px) {
+    body {
+      padding-top: 4rem; /* 64px for larger screens */
+    }
+  }
+  
+  @media (max-width: 639px) {
+    body {
+      padding-top: 3.5rem; /* 56px for smaller screens */
+    }
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/5 backdrop-blur-sm border border-white/10;
+  }
+  
+  .border-gradient {
+    @apply border border-transparent bg-gradient-to-r from-blue/20 via-teal/20 to-purple/20 bg-clip-border;
+  }
+  
+  .container-bk {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .section {
+    @apply py-20 lg:py-32;
+  }
+  
+  .section-tight {
+    @apply py-12 lg:py-20;
+  }
+  
+  .section-spacious {
+    @apply py-24 lg:py-40;
+  }
+  
+  /* Custom animations for stats */
+  .stat-hover {
+    @apply transition-all duration-500 ease-out;
+  }
+  
+  .stat-hover:hover {
+    @apply transform scale-105 shadow-2xl;
+  }
+  
+  /* Floating animation for particles */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  /* Booking calendar animations */
+  @keyframes fadeInScale {
+    0% {
+      opacity: 0;
+      transform: scale(0.8) translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+  
+  @keyframes slideInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(30px) scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  @keyframes slideInFromRight {
+    0% {
+      opacity: 0;
+      transform: translateX(30px) scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+  }
+  
+  .animate-fade-in-scale {
+    animation: fadeInScale 0.6s ease-out forwards;
+  }
+  
+  .animate-slide-in-up {
+    animation: slideInUp 0.6s ease-out forwards;
+  }
+  
+  .animate-slide-in-right {
+    animation: slideInFromRight 0.6s ease-out forwards;
+  }
+  
+  /* Glow effect */
+  .glow-on-hover {
+    @apply transition-all duration-300;
+  }
+  
+  .glow-on-hover:hover {
+    @apply shadow-lg shadow-blue/25;
+  }
+  
+  /* Grid layout fixes */
+  .stats-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+    gap: 1.5rem !important;
+    width: 100% !important;
+  }
+  
+  .stats-grid > * {
+    min-width: 0 !important;
+    width: 100% !important;
+    display: block !important;
+  }
+  
+  /* Responsive grid */
+  @media (min-width: 1024px) {
+    .stats-grid {
+      grid-template-columns: repeat(4, 1fr) !important;
+    }
+  }
+  
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .stats-grid {
+      grid-template-columns: 1fr !important;
+    }
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

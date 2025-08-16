@@ -1,60 +1,77 @@
-import { ReactNode, ButtonHTMLAttributes, AnchorHTMLAttributes } from 'react'
+import { ReactNode, ButtonHTMLAttributes, AnchorHTMLAttributes } from 'react';
+import { tokens } from '@/lib/tokens';
 
-type ButtonVariant = 'primary' | 'ghost' | 'link'
-type ButtonSize = 'md' | 'lg'
-
-interface BaseButtonProps {
-  variant?: ButtonVariant
-  size?: ButtonSize
-  'data-cta'?: string
-  children: React.ReactNode
-  className?: string
-  disabled?: boolean
+interface BaseProps {
+  variant?: 'primary' | 'ghost' | 'link';
+  size?: 'sm' | 'md' | 'lg';
+  className?: string;
 }
 
-interface ButtonProps extends BaseButtonProps, Omit<ButtonHTMLAttributes<HTMLButtonElement>, keyof BaseButtonProps> {
-  as?: 'button'
+interface ButtonProps extends BaseProps, Omit<ButtonHTMLAttributes<HTMLButtonElement>, keyof BaseProps> {
+  children: ReactNode;
 }
 
-interface LinkButtonProps extends BaseButtonProps, Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof BaseButtonProps> {
-  as: 'a'
-  href: string
+interface AnchorProps extends BaseProps, Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof BaseProps> {
+  children: ReactNode;
+  href: string;
 }
 
-type ButtonComponentProps = ButtonProps | LinkButtonProps
+type Props = ButtonProps | AnchorProps;
 
-export function Button(props: ButtonComponentProps) {
-  const { variant = 'primary', size = 'md', className = '', children, ...rest } = props
-  const isLink = 'as' in props && props.as === 'a'
-
-  const baseClasses = 'inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2'
+export function Button(props: Props) {
+  const { children, variant = 'primary', size = 'md', className = '', ...rest } = props;
   
-  const variantClasses = {
-    primary: 'bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-700 shadow-e1 hover:shadow-e2',
-    ghost: 'text-ink-800 hover:bg-mist-100 active:bg-mist-200',
-    link: 'text-primary-600 hover:text-primary-700 underline-offset-4 hover:underline'
-  }
+  const baseClasses = 'inline-flex items-center justify-center font-medium transition-all duration-220 focus:outline-none focus:ring-2 focus:ring-blue focus:ring-offset-2 focus:ring-offset-bg-page';
   
   const sizeClasses = {
-    md: 'h-11 px-6 text-base rounded-xl',
-    lg: 'h-13 px-8 text-lg rounded-xl'
-  }
-
-  const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`
-
-  if (isLink) {
-    const { as, ...linkProps } = rest as LinkButtonProps
+    sm: 'px-4 py-2 text-sm rounded-card',
+    md: 'px-6 py-3 text-body rounded-card',
+    lg: 'px-8 py-4 text-lead rounded-card',
+  };
+  
+  const variantClasses = {
+    primary: 'bg-gradient-to-r from-blue to-teal text-ink font-semibold shadow-s1 hover:shadow-s2 relative overflow-hidden group',
+    ghost: 'bg-transparent text-ink border border-line hover:bg-white/5 hover:border-white/20',
+    link: 'bg-transparent text-blue hover:text-teal underline-offset-4 hover:underline',
+  };
+  
+  const classes = `${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]} ${className}`;
+  
+  // Primary button with glossy effect
+  if (variant === 'primary' && !('href' in rest)) {
     return (
-      <a className={classes} {...linkProps}>
+      <button className={classes} {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)}>
+        {/* Glossy highlight overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-220" />
+        <span className="relative z-10">{children}</span>
+      </button>
+    );
+  }
+  
+  // Primary link button
+  if (variant === 'primary' && 'href' in rest) {
+    return (
+      <a className={classes} {...(rest as AnchorHTMLAttributes<HTMLAnchorElement>)}>
+        {/* Glossy highlight overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-220" />
+        <span className="relative z-10">{children}</span>
+      </a>
+    );
+  }
+  
+  // Link button
+  if ('href' in rest) {
+    return (
+      <a className={classes} {...(rest as AnchorHTMLAttributes<HTMLAnchorElement>)}>
         {children}
       </a>
-    )
+    );
   }
-
-  const { as, ...buttonProps } = rest as ButtonProps
+  
+  // Regular button
   return (
-    <button className={classes} {...buttonProps}>
+    <button className={classes} {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)}>
       {children}
     </button>
-  )
+  );
 }

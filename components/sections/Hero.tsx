@@ -27,7 +27,6 @@ export function Hero({ tagline, lead, primaryCTA, secondaryCTA, className = '' }
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
           <Button 
-            as="a" 
             href="#demo" 
             size="lg"
             data-cta="hero-primary"
@@ -36,7 +35,6 @@ export function Hero({ tagline, lead, primaryCTA, secondaryCTA, className = '' }
           </Button>
           <Button 
             variant="ghost" 
-            as="a" 
             href="#learn-more" 
             size="lg"
             data-cta="hero-secondary"

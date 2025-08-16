@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Manrope, Instrument_Serif } from 'next/font/google'
-import './globals.css'
+import '../styles/globals.css'
+import { SEOOptimizer } from '@/components/SEOOptimizer'
 
 const manrope = Manrope({ 
   subsets: ['latin'],
@@ -79,9 +80,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="sv" className={`${manrope.variable} ${instrumentSerif.variable}`}>
-      <body className="font-sans antialiased">
-        {children}
-      </body>
+      <SEOOptimizer
+        data={{
+          title: 'Bokario - Automatisera din verksamhet med smarta lösningar',
+          description: 'Vi hjälper företag att automatisera bokningar, optimera Maps-synlighet och bygga förtroende med recensioner. Boka gratis demo idag!',
+          keywords: ['bokningssystem', 'maps optimering', 'recensioner', 'automatisering', 'företag'],
+          ogImage: '/brand/og/home.png',
+          ogType: 'website'
+        }}
+      >
+        <body className="font-sans antialiased">
+          {children}
+        </body>
+      </SEOOptimizer>
     </html>
   )
 }

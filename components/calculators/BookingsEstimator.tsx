@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { Card } from '../Card'
 import { Button } from '../Button'
 
@@ -11,9 +11,36 @@ export function BookingsEstimator() {
   const [noShow, setNoShow] = useState(20)
   const [revenuePerBooking, setRevenuePerBooking] = useState(5000)
 
-  const clicks = adBudget / cpc
-  const bookings = clicks * (cvr / 100) * (1 - noShow / 100)
-  const totalRevenue = bookings * revenuePerBooking
+  // Memoized calculations for better performance
+  const calculations = useMemo(() => {
+    if (cpc <= 0 || cvr <= 0 || noShow < 0 || noShow > 100) {
+      return {
+        clicks: 0,
+        bookings: 0,
+        totalRevenue: 0,
+        roi: 0
+      }
+    }
+
+    const clicks = adBudget / cpc
+    const bookings = clicks * (cvr / 100) * (1 - noShow / 100)
+    const totalRevenue = bookings * revenuePerBooking
+    const roi = adBudget > 0 ? ((totalRevenue - adBudget) / adBudget) * 100 : 0
+
+    return {
+      clicks,
+      bookings,
+      totalRevenue,
+      roi
+    }
+  }, [adBudget, cpc, cvr, noShow, revenuePerBooking])
+
+  const handleInputChange = (setter: (value: number) => void, value: string) => {
+    const numValue = Number(value)
+    if (!isNaN(numValue) && numValue >= 0) {
+      setter(numValue)
+    }
+  }
 
   return (
     <Card className="p-8">
@@ -27,9 +54,11 @@ export function BookingsEstimator() {
             </label>
             <input
               type="number"
+              min="0"
+              step="100"
               value={adBudget}
-              onChange={(e) => setAdBudget(Number(e.target.value))}
-              className="w-full px-4 py-3 border border-line rounded-12 focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+              onChange={(e) => handleInputChange(setAdBudget, e.target.value)}
+              className="w-full px-4 py-3 border border-line rounded-12 focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-colors"
               placeholder="10000"
             />
             <p className="text-xs text-ink-600 mt-1">Månadsbudget för Google Ads</p>
@@ -41,9 +70,11 @@ export function BookingsEstimator() {
             </label>
             <input
               type="number"
+              min="0.01"
+              step="0.01"
               value={cpc}
-              onChange={(e) => setCpc(Number(e.target.value))}
-              className="w-full px-4 py-3 border border-line rounded-12 focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+              onChange={(e) => handleInputChange(setCpc, e.target.value)}
+              className="w-full px-4 py-3 border border-line rounded-12 focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-colors"
               placeholder="15"
             />
             <p className="text-xs text-ink-600 mt-1">Genomsnittlig kostnad per klick</p>
@@ -55,9 +86,12 @@ export function BookingsEstimator() {
             </label>
             <input
               type="number"
+              min="0.01"
+              max="100"
+              step="0.01"
               value={cvr}
-              onChange={(e) => setCvr(Number(e.target.value))}
-              className="w-full px-4 py-3 border border-line rounded-12 focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+              onChange={(e) => handleInputChange(setCvr, e.target.value)}
+              className="w-full px-4 py-3 border border-line rounded-12 focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-colors"
               placeholder="3"
             />
             <p className="text-xs text-ink-600 mt-1">Procent klick som blir bokningar</p>
@@ -69,9 +103,12 @@ export function BookingsEstimator() {
             </label>
             <input
               type="number"
+              min="0"
+              max="100"
+              step="0.1"
               value={noShow}
-              onChange={(e) => setNoShow(Number(e.target.value))}
-              className="w-full px-4 py-3 border border-line rounded-12 focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+              onChange={(e) => handleInputChange(setNoShow, e.target.value)}
+              className="w-full px-4 py-3 border border-line rounded-12 focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-colors"
               placeholder="20"
             />
             <p className="text-xs text-ink-600 mt-1">Procent bokningar som inte dyker upp</p>
@@ -83,9 +120,11 @@ export function BookingsEstimator() {
             </label>
             <input
               type="number"
+              min="0"
+              step="100"
               value={revenuePerBooking}
-              onChange={(e) => setRevenuePerBooking(Number(e.target.value))}
-              className="w-full px-4 py-3 border border-line rounded-12 focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+              onChange={(e) => handleInputChange(setRevenuePerBooking, e.target.value)}
+              className="w-full px-4 py-3 border border-line rounded-12 focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-colors"
               placeholder="5000"
             />
             <p className="text-xs text-ink-600 mt-1">Genomsnittlig intäkt per bokning</p>
@@ -93,37 +132,40 @@ export function BookingsEstimator() {
         </div>
         
         <div className="space-y-6">
-          <div className="text-center p-6 bg-mist-50 rounded-12">
+          <div className="text-center p-6 bg-mist-50 rounded-12 border border-mist-200">
             <div className="text-2xl font-bold text-ink-950 mb-2">
-              {clicks.toFixed(0)}
+              {calculations.clicks.toFixed(0)}
             </div>
             <div className="text-sm text-ink-600">Förväntade klick per månad</div>
           </div>
           
-          <div className="text-center p-6 bg-mist-50 rounded-12">
+          <div className="text-center p-6 bg-mist-50 rounded-12 border border-mist-200">
             <div className="text-2xl font-bold text-ink-950 mb-2">
-              {bookings.toFixed(1)}
+              {calculations.bookings.toFixed(1)}
             </div>
             <div className="text-sm text-ink-600">Förväntade bokningar per månad</div>
           </div>
           
-          <div className="text-center p-6 bg-primary-600/10 rounded-12">
+          <div className="text-center p-6 bg-primary-600/10 rounded-12 border border-primary-200">
             <div className="text-3xl font-bold text-primary-600 mb-2">
-              {totalRevenue.toLocaleString('sv-SE')} kr
+              {calculations.totalRevenue.toLocaleString('sv-SE')} kr
             </div>
             <div className="text-sm text-ink-600">Total intäkt per månad</div>
           </div>
           
-          <div className="text-center p-4 bg-mist-100 rounded-12">
-            <div className="text-sm text-ink-700">
-              ROI: {((totalRevenue - adBudget) / adBudget * 100).toFixed(1)}%
+          <div className="text-center p-4 bg-mist-100 rounded-12 border border-mist-200">
+            <div className={`text-sm font-medium ${calculations.roi >= 0 ? 'text-success' : 'text-red-500'}`}>
+              ROI: {calculations.roi.toFixed(1)}%
+            </div>
+            <div className="text-xs text-ink-600 mt-1">
+              {calculations.roi >= 0 ? 'Positiv avkastning' : 'Negativ avkastning'}
             </div>
           </div>
         </div>
       </div>
       
       <div className="text-center">
-        <Button as="a" href="/bookings" size="lg">
+        <Button href="/bookings" size="lg">
           Optimera ditt bokningsflöde
         </Button>
       </div>

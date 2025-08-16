@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://bokario.se/sitemap.xml
+
+# Privacy Policy
+Allow: /privacy-policy.md
+Allow: /privacy.html
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /scripts/
+Disallow: /analytics/
+
+# Crawl delay (optional)
+Crawl-delay: 1

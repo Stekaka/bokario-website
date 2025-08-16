@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { Card } from '../Card'
 import { Button } from '../Button'
 
@@ -13,10 +13,36 @@ export function ReviewsImpactCalculator() {
   const [cvr, setCvr] = useState(3)
   const [revenuePerBooking, setRevenuePerBooking] = useState(5000)
 
-  const ratingDifference = targetRating - currentRating
-  const extraClicks = monthlyTraffic * (ctrLift / 100)
-  const extraBookings = extraClicks * (cvr / 100)
-  const extraRevenue = extraBookings * revenuePerBooking
+  // Memoized calculations for better performance
+  const calculations = useMemo(() => {
+    if (monthlyTraffic <= 0 || ctrLift <= 0 || ctrLift > 100 || cvr <= 0 || cvr > 100) {
+      return {
+        ratingDifference: 0,
+        extraClicks: 0,
+        extraBookings: 0,
+        extraRevenue: 0
+      }
+    }
+
+    const ratingDifference = targetRating - currentRating
+    const extraClicks = monthlyTraffic * (ctrLift / 100)
+    const extraBookings = extraClicks * (cvr / 100)
+    const extraRevenue = extraBookings * revenuePerBooking
+
+    return {
+      ratingDifference,
+      extraClicks,
+      extraBookings,
+      extraRevenue
+    }
+  }, [currentRating, targetRating, currentReviews, monthlyTraffic, ctrLift, cvr, revenuePerBooking])
+
+  const handleInputChange = (setter: (value: number) => void, value: string) => {
+    const numValue = Number(value)
+    if (!isNaN(numValue) && numValue >= 0) {
+      setter(numValue)
+    }
+  }
 
   return (
     <Card className="p-8">
@@ -34,8 +60,8 @@ export function ReviewsImpactCalculator() {
               min="1"
               max="5"
               value={currentRating}
-              onChange={(e) => setCurrentRating(Number(e.target.value))}
-              className="w-full px-4 py-3 border border-line rounded-12 focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+              onChange={(e) => handleInputChange(setCurrentRating, e.target.value)}
+              className="w-full px-4 py-3 border border-line rounded-12 focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-colors"
               placeholder="4.2"
             />
             <p className="text-xs text-ink-600 mt-1">Ditt nuvarande Google-snitt</p>
@@ -51,8 +77,8 @@ export function ReviewsImpactCalculator() {
               min="1"
               max="5"
               value={targetRating}
-              onChange={(e) => setTargetRating(Number(e.target.value))}
-              className="w-full px-4 py-3 border border-line rounded-12 focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+              onChange={(e) => handleInputChange(setTargetRating, e.target.value)}
+              className="w-full px-4 py-3 border border-line rounded-12 focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-colors"
               placeholder="4.7"
             />
             <p className="text-xs text-ink-600 mt-1">Målsnitt du vill uppnå</p>
@@ -64,9 +90,11 @@ export function ReviewsImpactCalculator() {
             </label>
             <input
               type="number"
+              min="1"
+              step="1"
               value={currentReviews}
-              onChange={(e) => setCurrentReviews(Number(e.target.value))}
-              className="w-full px-4 py-3 border border-line rounded-12 focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+              onChange={(e) => handleInputChange(setCurrentReviews, e.target.value)}
+              className="w-full px-4 py-3 border border-line rounded-12 focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-colors"
               placeholder="25"
             />
             <p className="text-xs text-ink-600 mt-1">Nuvarande antal recensioner</p>
@@ -78,9 +106,11 @@ export function ReviewsImpactCalculator() {
             </label>
             <input
               type="number"
+              min="1"
+              step="1"
               value={monthlyTraffic}
-              onChange={(e) => setMonthlyTraffic(Number(e.target.value))}
-              className="w-full px-4 py-3 border border-line rounded-12 focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+              onChange={(e) => handleInputChange(setMonthlyTraffic, e.target.value)}
+              className="w-full px-4 py-3 border border-line rounded-12 focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-colors"
               placeholder="1000"
             />
             <p className="text-xs text-ink-600 mt-1">Besökare som ser ditt företag</p>
@@ -92,9 +122,12 @@ export function ReviewsImpactCalculator() {
             </label>
             <input
               type="number"
+              min="0.01"
+              max="100"
+              step="0.01"
               value={ctrLift}
-              onChange={(e) => setCtrLift(Number(e.target.value))}
-              className="w-full px-4 py-3 border border-line rounded-12 focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+              onChange={(e) => handleInputChange(setCtrLift, e.target.value)}
+              className="w-full px-4 py-3 border border-line rounded-12 focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-colors"
               placeholder="15"
             />
             <p className="text-xs text-ink-600 mt-1">Förväntad ökning av klick</p>
@@ -106,9 +139,12 @@ export function ReviewsImpactCalculator() {
             </label>
             <input
               type="number"
+              min="0.01"
+              max="100"
+              step="0.01"
               value={cvr}
-              onChange={(e) => setCvr(Number(e.target.value))}
-              className="w-full px-4 py-3 border border-line rounded-12 focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+              onChange={(e) => handleInputChange(setCvr, e.target.value)}
+              className="w-full px-4 py-3 border border-line rounded-12 focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-colors"
               placeholder="3"
             />
             <p className="text-xs text-ink-600 mt-1">Procent klick som blir bokningar</p>
@@ -120,9 +156,11 @@ export function ReviewsImpactCalculator() {
             </label>
             <input
               type="number"
+              min="0"
+              step="100"
               value={revenuePerBooking}
-              onChange={(e) => setRevenuePerBooking(Number(e.target.value))}
-              className="w-full px-4 py-3 border border-line rounded-12 focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+              onChange={(e) => handleInputChange(setRevenuePerBooking, e.target.value)}
+              className="w-full px-4 py-3 border border-line rounded-12 focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-colors"
               placeholder="5000"
             />
             <p className="text-xs text-ink-600 mt-1">Genomsnittlig intäkt per bokning</p>
@@ -130,38 +168,40 @@ export function ReviewsImpactCalculator() {
         </div>
         
         <div className="space-y-6">
-          <div className="text-center p-6 bg-mist-50 rounded-12">
-            <div className="text-2xl font-bold text-ink-950 mb-2">
-              {ratingDifference.toFixed(1)}
+          <div className="text-center p-6 bg-mist-50 rounded-12 border border-mist-200">
+            <div className={`text-2xl font-bold mb-2 ${calculations.ratingDifference > 0 ? 'text-success' : calculations.ratingDifference < 0 ? 'text-red-500' : 'text-ink-950'}`}>
+              {calculations.ratingDifference.toFixed(1)}
             </div>
             <div className="text-sm text-ink-600">Betygsökning att uppnå</div>
           </div>
           
-          <div className="text-center p-6 bg-mist-50 rounded-12">
+          <div className="text-center p-6 bg-mist-50 rounded-12 border border-mist-200">
             <div className="text-2xl font-bold text-ink-950 mb-2">
-              {extraClicks.toFixed(0)}
+              {calculations.extraClicks.toFixed(0)}
             </div>
             <div className="text-sm text-ink-600">Extra klick per månad</div>
           </div>
           
-          <div className="text-center p-6 bg-mist-50 rounded-12">
+          <div className="text-center p-6 bg-mist-50 rounded-12 border border-mist-200">
             <div className="text-2xl font-bold text-ink-950 mb-2">
-              {extraBookings.toFixed(1)}
+              {calculations.extraBookings.toFixed(1)}
             </div>
             <div className="text-sm text-ink-600">Extra bokningar per månad</div>
           </div>
           
-          <div className="text-center p-6 bg-success/10 rounded-12">
+          <div className="text-center p-6 bg-success/10 rounded-12 border border-success-200">
             <div className="text-3xl font-bold text-success mb-2">
-              {extraRevenue.toLocaleString('sv-SE')} kr
+              {calculations.extraRevenue.toLocaleString('sv-SE')} kr
             </div>
             <div className="text-sm text-ink-600">Extra intäkter per månad</div>
           </div>
           
-          <div className="text-center p-4 bg-mist-100 rounded-12">
-            <div className="text-sm text-ink-700">
-              {ratingDifference > 0 
-                ? `Förbättra ditt betyg med ${ratingDifference.toFixed(1)} stjärnor`
+          <div className="text-center p-4 bg-mist-100 rounded-12 border border-mist-200">
+            <div className="text-sm text-ink-700 font-medium">
+              {calculations.ratingDifference > 0 
+                ? `Förbättra ditt betyg med ${calculations.ratingDifference.toFixed(1)} stjärnor`
+                : calculations.ratingDifference < 0
+                ? `Ditt betyg är ${Math.abs(calculations.ratingDifference).toFixed(1)} stjärnor över målet`
                 : 'Ditt betyg är redan på målnivå'
               }
             </div>
@@ -170,7 +210,7 @@ export function ReviewsImpactCalculator() {
       </div>
       
       <div className="text-center">
-        <Button as="a" href="/reviews" size="lg">
+        <Button href="/reviews" size="lg">
           Bygg ditt rykte med fler recensioner
         </Button>
       </div>

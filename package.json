@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "generate-seo": "node scripts/generate-sitemap.js",
+    "generate-privacy": "node scripts/generate-privacy-policy.js",
     "lint:dup": "node scripts/lint-dup.js",
     "typecheck": "tsc --noEmit",
     "check": "npm run lint && npm run lint:dup && npm run typecheck"

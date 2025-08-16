@@ -70,7 +70,7 @@ export function Pricing({ tiers, title, subtitle, className = '' }: PricingProps
                 ))}
               </ul>
               
-              <Button as="a" href={tier.cta.href} size="lg" className="w-full">
+              <Button href={tier.cta.href} size="lg" className="w-full">
                 {tier.cta.label}
               </Button>
             </Card>

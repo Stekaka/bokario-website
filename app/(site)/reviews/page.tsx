@@ -1,32 +1,27 @@
-import { Page } from '../../../components/Page'
-import { Hero } from '../../../components/sections/Hero'
-import { FeatureList } from '../../../components/sections/FeatureList'
-import { Process } from '../../../components/sections/Process'
-import { Pricing } from '../../../components/sections/Pricing'
-import { FAQ } from '../../../components/sections/FAQ'
-import { CTA } from '../../../components/sections/CTA'
-import { ReviewsImpactCalculator } from '../../../components/calculators/ReviewsImpactCalculator'
-import { KPI } from '../../../components/KPI'
+"use client";
+
+import { Hero } from "@/components/Hero";
+import { Button } from "@/components/Button";
+import { Stat } from "@/components/Stat";
+import { FeatureList } from "@/components/FeatureList";
+import { Process } from "@/components/Process";
+import { Pricing } from "@/components/Pricing";
+import { FAQ } from "@/components/FAQ";
+import { CTA } from "@/components/CTA";
+import { Card } from "@/components/Card";
+import { MeasurableResults } from "@/components/MeasurableResults";
+import { ReviewsROICalculator } from "@/components/calculators/ReviewsROICalculator";
 
 export default function ReviewsPage() {
-  const features = [
+  const reviewsFeatures = [
     {
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
         </svg>
       ),
-      title: 'SMS/QR-system',
-      description: 'Automatiskt system som skickar SMS eller QR-koder till kunder för enkla recensioner.'
-    },
-    {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-        </svg>
-      ),
-      title: 'Svarsmallar',
-      description: 'Fördefinierade mallar för olika typer av recensioner som ökar svarsfrekvensen.'
+      title: 'Automatisk recensionshantering',
+      description: 'Vi samlar automatiskt in recensioner från dina kunder och hanterar svaren för att bygga förtroende.'
     },
     {
       icon: (
@@ -34,189 +29,197 @@ export default function ReviewsPage() {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
         </svg>
       ),
-      title: 'Rapportering',
-      description: 'Detaljerade rapporter som visar recensionstrends och påverkan på din synlighet.'
+      title: 'SEO-optimering',
+      description: 'Recensioner förbättrar din lokala SEO och gör att du syns högre upp i Google-sökningar.'
+    },
+    {
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+      ),
+      title: 'Snabb påverkan',
+      description: 'Se förbättringar i din synlighet och konvertering inom 14 dagar med vår recensionsstrategi.'
     }
-  ]
+  ];
 
-  const processSteps = [
+  const reviewsProcess = [
     {
       number: 1,
-      title: 'Setup',
-      description: 'Vi sätter upp ditt recensionssystem med SMS/QR och svarsmallar.'
+      title: 'Strategi',
+      description: 'Vi utvecklar en skräddarsydd strategi för att samla in recensioner från dina nöjda kunder.'
     },
     {
       number: 2,
-      title: 'Automatisering',
-      description: 'Systemet skickar automatiskt recensionsförfrågningar till dina kunder.'
+      title: 'Implementation',
+      description: 'Vi implementerar automatiska system för att samla in och hantera recensioner.'
     },
     {
       number: 3,
-      title: 'Resultat',
-      description: 'Kontinuerlig övervakning och optimering för att maximera recensioner.'
+      title: 'Optimering',
+      description: 'Kontinuerlig optimering av recensionsstrategin för att maximera din synlighet.'
     }
-  ]
+  ];
 
-  const pricingTiers = [
+  const reviewsPricing = [
     {
-      name: 'Start',
-      price: '1,500',
-      period: 'månad',
-      description: 'Perfekt för mindre företag som vill komma igång',
+      name: 'Starter',
+      price: '1,495',
+      period: '/månad',
+      description: 'Perfekt för mindre företag som vill komma igång med recensionshantering.',
       features: [
-        'SMS/QR-system',
-        'Grundläggande svarsmallar',
-        'Månadsrapport',
-        'E-post support'
+        'Grundläggande recensionshantering',
+        'Upp till 50 recensioner/månad',
+        'E-post support',
+        'Grundläggande rapporter',
+        'Google My Business-integration'
       ],
-      cta: { label: 'Börja nu', href: '/#kontakt' }
+      cta: {
+        label: 'Starta nu',
+        href: '/#kontakt'
+      }
     },
     {
-      name: 'Pro',
-      price: '2,500',
-      period: 'månad',
-      description: 'Vår mest populära lösning för växande företag',
+      name: 'Professional',
+      price: '2,995',
+      period: '/månad',
+      description: 'Vår mest populära lösning med avancerad recensionshantering och support.',
       features: [
-        'Allt i Start +',
-        'Avancerade svarsmallar',
-        'A/B-testning',
-        'Veckorapport',
+        'Allt i Starter',
+        'Obegränsade recensioner',
+        'Automatisk recensionssamling',
+        'Avancerade rapporter',
         'Prioriterad support',
-        'Policy-kompatibilitet'
+        'Multi-plattform support',
+        'Kundkommunikation'
       ],
-      popular: true,
-      cta: { label: 'Välj Pro', href: '/#kontakt' }
+      recommended: true,
+      cta: {
+        label: 'Välj Professional',
+        href: '/#kontakt'
+      }
     },
     {
-      name: 'Elite',
-      price: '4,000',
-      period: 'månad',
-      description: 'Komplett lösning för stora företag',
+      name: 'Enterprise',
+      price: '4,995',
+      period: '/månad',
+      description: 'Fullständig recensionslösning för stora företag med flera platser.',
       features: [
-        'Allt i Pro +',
+        'Allt i Professional',
         'Flera platser',
-        'Konkurrensanalys',
-        'Daglig övervakning',
-        'Dedikerad strateg',
-        '24/7 support'
+        'White-label lösning',
+        'Dedikerad support',
+        'Custom integrationer',
+        'Avancerad analytics',
+        'SLA-garanti'
       ],
-      cta: { label: 'Kontakta oss', href: '/#kontakt' }
+      cta: {
+        label: 'Kontakta oss',
+        href: '/#kontakt'
+      }
     }
-  ]
+  ];
 
-  const faqItems = [
+  const reviewsFAQ = [
     {
-      question: 'Hur snart ser jag fler recensioner?',
-      answer: 'De flesta kunder ser förbättringar inom 2-4 veckor, med fulla resultat efter 1-2 månader.'
+      question: 'Hur snabbt kan jag se resultat?',
+      answer: 'De flesta av våra kunder ser förbättringar inom 14 dagar. Recensioner påverkar din SEO omedelbart.'
     },
     {
-      question: 'Vad händer om jag inte fördubblar recensionstakten på 60 dagar?',
-      answer: 'Vi erbjuder en garanti: fördubbla recensionstakten på 60 dagar – annars bjuder vi på nästa månad.'
+      question: 'Vad händer med negativa recensioner?',
+      answer: 'Vi hjälper dig att hantera negativa recensioner professionellt och konvertera dem till positiva upplevelser.'
     },
     {
-      question: 'Är recensionerna äkta?',
-      answer: 'Ja, vi följer alla plattformars riktlinjer och samlar endast in äkta kundrecensioner.'
+      question: 'Kan ni hjälpa med flera platser?',
+      answer: 'Absolut! Vi har specialiserat oss på att hantera flera platser för stora företag med vårt Enterprise-paket.'
     },
     {
-      question: 'Kan jag välja vilka kunder som får förfrågningar?',
-      answer: 'Ja, du kan filtrera kunder baserat på olika kriterier för att maximera svarsfrekvensen.'
-    },
-    {
-      question: 'Vad kostar det att komma igång?',
-      answer: 'Vi erbjuder transparenta priser från 1,500 kr/månad med ingen setup-avgift.'
+      question: 'Hur mäter ni framgång?',
+      answer: 'Vi spårar antal recensioner, genomsnittsbetyg, SEO-förbättringar och ökning av synlighet.'
     }
-  ]
-
-  const kpis = [
-    {
-      value: '+100%',
-      label: 'Fler recensioner',
-      description: 'Genomsnittlig ökning av recensioner',
-      trend: { value: 100, isPositive: true }
-    },
-    {
-      value: '+0.5',
-      label: 'Bättre betyg',
-      description: 'Genomsnittlig förbättring av snittbetyg',
-      trend: { value: 50, isPositive: true }
-    },
-    {
-      value: '+25%',
-      label: 'Fler klick',
-      description: 'Genomsnittlig ökning av klick från recensioner',
-      trend: { value: 25, isPositive: true }
-    }
-  ]
+  ];
 
   return (
-    <Page title="Recensionshantering - Bokario">
+    <main id="main">
       <Hero
-        tagline="Fler äkta omdömen. Fler bokningar."
-        lead="Policy-säker review-motor med SMS/QR och svarsmallar. Fördubbla recensionstakten på 60 dagar – annars bjuder vi på nästa månad."
-        primaryCTA={{
-          label: 'Boka gratis konsultation',
-          href: '/#kontakt'
-        }}
-        secondaryCTA={{
-          label: 'Se våra priser',
-          href: '/reviews/pris'
-        }}
+        title="Bygg förtroende med recensioner."
+        sub="Automatisera din recensionshantering och låt dina nöjda kunder hjälpa dig att synas först i sökningar. Öka din synlighet och konvertering med äkta kundrecensioner."
+        align="center"
+        trustText="Trusted by 400+ Swedish businesses for review management"
+        ctas={
+          <>
+            <Button variant="primary" size="lg" href="/#kontakt">
+              Boka gratis recensions-strategi
+            </Button>
+            <Button variant="ghost" size="lg" href="/#tjanster">
+              Se våra recensionslösningar
+            </Button>
+          </>
+        }
       />
 
-      <section className="section">
+      {/* Reviews Impact Stats */}
+      <MeasurableResults />
+
+      {/* Reviews Features */}
+      <FeatureList
+        features={reviewsFeatures}
+        title="Varför välja vår recensionshantering?"
+        subtitle="Vi kombinerar automatisk recensionssamling med strategisk hantering för att maximera din synlighet."
+      />
+
+      {/* Reviews Process */}
+      <Process
+        steps={reviewsProcess}
+        title="Så bygger vi ditt förtroende med recensioner"
+        subtitle="En enkel 3-stegs process som ger resultat"
+      />
+
+      {/* Reviews Impact Calculator */}
+      <section className="section bg-surface">
         <div className="container-bk">
           <div className="text-center mb-12">
-            <h2 className="text-h2 text-ink-950 mb-4">Mätbara resultat</h2>
-            <p className="text-lead text-ink-700 max-w-[65ch] mx-auto">
-              Våra kunder ser konkreta resultat inom 60 dagar
+            <h2 className="font-display text-h2 text-ink mb-4">Beräkna din recensions-påverkan</h2>
+            <p className="lede mx-auto">
+              Se hur mycket recensioner kan öka din verksamhet
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {kpis.map((kpi, index) => (
-              <KPI key={index} {...kpi} />
-            ))}
+
+          <div className="max-w-2xl mx-auto">
+            <ReviewsROICalculator />
           </div>
         </div>
       </section>
 
-      <FeatureList
-        features={features}
-        title="Vad ingår i vår recensionshantering?"
-        subtitle="En komplett lösning för att maximera dina recensioner"
-      />
-
-      <Process
-        steps={processSteps}
-        title="Så fungerar det"
-        subtitle="En enkel process från start till resultat"
-      />
-
-      <section className="section">
-        <div className="container-bk">
-          <ReviewsImpactCalculator />
-        </div>
-      </section>
-
+      {/* Reviews Pricing */}
       <Pricing
-        tiers={pricingTiers}
-        title="Enkla, transparenta priser"
-        subtitle="Välj det paket som passar ditt företag bäst"
+        tiers={reviewsPricing}
+        title="Välj ditt recensionspaket"
+        subtitle="Flexibla priser som växer med ditt företag"
       />
 
+      {/* Reviews FAQ */}
       <FAQ
-        items={faqItems}
-        title="Vanliga frågor"
-        subtitle="Svar på de vanligaste frågorna om vår recensionshantering"
+        items={reviewsFAQ}
+        title="Vanliga frågor om recensionshantering"
+        subtitle="Svar på de vanligaste frågorna om våra recensionslösningar"
       />
 
+      {/* Reviews CTA */}
       <CTA
-        title="Redo att få fler recensioner?"
-        subtitle="Boka en gratis konsultation och låt oss visa hur vi kan hjälpa dig att bygga ditt rykte."
-        cta={{
-          label: 'Boka gratis konsultation',
-          href: '/#kontakt'
-        }}
+        title="Redo att bygga förtroende med recensioner?"
+        subtitle="Boka en gratis strategikonsultation idag och låt oss diskutera hur vi kan hjälpa dig att samla in fler recensioner."
+        ctas={
+          <>
+            <Button variant="primary" size="lg" href="/#kontakt">
+              Boka gratis recensions-strategi
+            </Button>
+            <Button variant="ghost" size="lg" href="/#tjanster">
+              Läs mer om våra lösningar
+            </Button>
+          </>
+        }
       />
-    </Page>
-  )
+    </main>
+  );
 }

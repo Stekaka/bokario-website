@@ -1,218 +1,223 @@
-import { Page } from '../../../components/Page'
-import { Hero } from '../../../components/sections/Hero'
-import { FeatureList } from '../../../components/sections/FeatureList'
-import { Process } from '../../../components/sections/Process'
-import { Pricing } from '../../../components/sections/Pricing'
-import { FAQ } from '../../../components/sections/FAQ'
-import { CTA } from '../../../components/sections/CTA'
-import { MapsCallsEstimator } from '../../../components/calculators/MapsCallsEstimator'
-import { KPI } from '../../../components/KPI'
+"use client";
+
+import { Hero } from "@/components/Hero";
+import { Button } from "@/components/Button";
+import { Stat } from "@/components/Stat";
+import { FeatureList } from "@/components/FeatureList";
+import { Process } from "@/components/Process";
+import { Pricing } from "@/components/Pricing";
+import { FAQ } from "@/components/FAQ";
+import { CTA } from "@/components/CTA";
+import { Card } from "@/components/Card";
+import { MeasurableResults } from "@/components/MeasurableResults";
+import { MapsROICalculator } from "@/components/calculators/MapsROICalculator";
 
 export default function MapsPage() {
-  const features = [
-    {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      ),
-      title: 'Google Business Profile',
-      description: 'Fullständig optimering av din Google Business Profile för maximal synlighet i lokala sökningar.'
-    },
+  const mapsFeatures = [
     {
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
       ),
-      title: 'Lokalsignaler',
-      description: 'Strategisk hantering av lokala signaler för att förbättra din ranking i Maps-sökningar.'
+      title: 'Lokal SEO-optimering',
+      description: 'Vi optimerar din Google My Business-profil för att synas först i lokala sökningar.'
     },
     {
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
         </svg>
       ),
-      title: 'Omdömesflöde',
-      description: 'Automatiskt system för att samla in och hantera kundrecensioner som stärker din synlighet.'
+      title: 'Ranking-övervakning',
+      description: 'Kontinuerlig övervakning av din position i Google Maps och lokala sökningar.'
+    },
+    {
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+      title: 'Snabb resultat',
+      description: 'Se förbättringar inom 30 dagar med vår beprövade Maps-optimering.'
     }
-  ]
+  ];
 
-  const processSteps = [
+  const mapsProcess = [
     {
       number: 1,
       title: 'Analys',
-      description: 'Vi analyserar din nuvarande Google Maps-närvaro och identifierar förbättringsområden.'
+      description: 'Vi analyserar din nuvarande Maps-position och identifierar förbättringsmöjligheter.'
     },
     {
       number: 2,
       title: 'Optimering',
-      description: 'Fullständig optimering av din Business Profile med lokala SEO-strategier.'
+      description: 'Vi optimerar din Google My Business-profil med rätt nyckelord och innehåll.'
     },
     {
       number: 3,
       title: 'Resultat',
-      description: 'Kontinuerlig övervakning och optimering för att maximera din synlighet.'
+      description: 'Du ser ökad synlighet och fler kunder från Google Maps inom 30 dagar.'
     }
-  ]
+  ];
 
-  const pricingTiers = [
+  const mapsPricing = [
     {
-      name: 'Start',
-      price: '2,500',
-      period: 'månad',
-      description: 'Perfekt för mindre företag som vill komma igång',
+      name: 'Starter',
+      price: '2,995',
+      period: '/månad',
+      description: 'Perfekt för mindre företag som vill komma igång med Maps-optimering.',
       features: [
-        'Google Business Profile optimering',
-        'Grundläggande lokala SEO',
+        'Google My Business-optimering',
         'Månadsrapport',
-        'E-post support'
+        'Grundläggande support',
+        'Nyckelordsoptimering'
       ],
-      cta: { label: 'Börja nu', href: '/#kontakt' }
+      cta: {
+        label: 'Starta nu',
+        href: '/#kontakt'
+      }
     },
     {
-      name: 'Pro',
-      price: '4,500',
-      period: 'månad',
-      description: 'Vår mest populära lösning för växande företag',
+      name: 'Professional',
+      price: '4,995',
+      period: '/månad',
+      description: 'Vår mest populära lösning med avancerad optimering och support.',
       features: [
-        'Allt i Start +',
-        'Avancerad lokala SEO',
-        'Omdömeshantering',
+        'Allt i Starter',
+        'Avancerad nyckelordsoptimering',
         'Veckorapport',
         'Prioriterad support',
-        'A/B-testning'
+        'Konkurrentsanalys',
+        'Lokal SEO-strategi'
       ],
-      popular: true,
-      cta: { label: 'Välj Pro', href: '/#kontakt' }
+      recommended: true,
+      cta: {
+        label: 'Välj Professional',
+        href: '/#kontakt'
+      }
     },
     {
-      name: 'Elite',
-      price: '7,500',
-      period: 'månad',
-      description: 'Komplett lösning för stora företag med flera platser',
+      name: 'Enterprise',
+      price: '7,995',
+      period: '/månad',
+      description: 'Fullständig Maps-optimering för stora företag med flera platser.',
       features: [
-        'Allt i Pro +',
+        'Allt i Professional',
         'Flera platser',
-        'Konkurrensanalys',
         'Daglig övervakning',
         'Dedikerad strateg',
-        '24/7 support'
+        'Månadsstrategimöte',
+        'Custom rapporter'
       ],
-      cta: { label: 'Kontakta oss', href: '/#kontakt' }
+      cta: {
+        label: 'Kontakta oss',
+        href: '/#kontakt'
+      }
     }
-  ]
+  ];
 
-  const faqItems = [
+  const mapsFAQ = [
     {
-      question: 'Hur snart ser jag resultat?',
-      answer: 'De flesta kunder ser förbättringar inom 2-4 veckor, med fulla resultat efter 2-3 månader.'
+      question: 'Hur lång tid tar det att se resultat?',
+      answer: 'De flesta av våra kunder ser förbättringar inom 30 dagar. Vissa ser resultat redan efter 2 veckor.'
     },
     {
-      question: 'Vad händer om jag inte ser fler samtal?',
-      answer: 'Vi erbjuder en garanti: +25% fler samtal på 30 dagar – annars jobbar vi gratis tills du ser det.'
+      question: 'Vad ingår i Maps-optimering?',
+      answer: 'Vi optimerar din Google My Business-profil, nyckelord, beskrivningar, bilder och säkerställer att all information är korrekt och aktuell.'
     },
     {
-      question: 'Behöver jag ha en Google Business Profile?',
-      answer: 'Nej, vi hjälper dig att skapa och optimera din profil från grunden.'
+      question: 'Kan ni hjälpa med flera platser?',
+      answer: 'Absolut! Vi har specialiserat oss på att hantera flera platser för stora företag med vårt Enterprise-paket.'
     },
     {
-      question: 'Kan ni hantera flera platser?',
-      answer: 'Ja, vi har specialiserade paket för företag med flera platser.'
+      question: 'Hur mäter ni framgång?',
+      answer: 'Vi spårar din position i Google Maps, antal visningar, klick och samtal som genereras från Maps.'
     }
-  ]
-
-  const kpis = [
-    {
-      value: '+25%',
-      label: 'Fler samtal',
-      description: 'Genomsnittlig ökning av samtal från Maps',
-      trend: { value: 25, isPositive: true }
-    },
-    {
-      value: '+40%',
-      label: 'Fler visningar',
-      description: 'Genomsnittlig ökning av profilvisningar',
-      trend: { value: 40, isPositive: true }
-    },
-    {
-      value: '+35%',
-      label: 'Fler klick',
-      description: 'Genomsnittlig ökning av klick till hemsida',
-      trend: { value: 35, isPositive: true }
-    }
-  ]
+  ];
 
   return (
-    <Page title="Google Maps Optimering - Bokario">
+    <main id="main">
       <Hero
-        tagline="Dominera kartan och få fler samtal"
-        lead="+25% fler samtal på 30 dagar – annars jobbar vi gratis tills du ser det."
-        primaryCTA={{
-          label: 'Boka gratis konsultation',
-          href: '/#kontakt'
-        }}
-        secondaryCTA={{
-          label: 'Se våra priser',
-          href: '/maps/pris'
-        }}
+        title="Dominera Google Maps."
+        sub="Vi hjälper dig att synas först när kunder söker efter dina tjänster i ditt område. Öka din synlighet och få fler kunder från Maps."
+        align="center"
+        trustText="Trusted by 500+ Swedish businesses for Maps optimization"
+        ctas={
+          <>
+            <Button variant="primary" size="lg" href="/#kontakt">
+              Boka gratis Maps-konsultation
+            </Button>
+            <Button variant="ghost" size="lg" href="/#tjanster">
+              Se våra Maps-tjänster
+            </Button>
+          </>
+        }
       />
 
-      <section className="section">
+      {/* Maps ROI Stats */}
+      <MeasurableResults />
+
+      {/* Maps Features */}
+      <FeatureList
+        features={mapsFeatures}
+        title="Varför välja vår Maps-optimering?"
+        subtitle="Vi kombinerar lokal SEO-expertis med beprövade strategier för att få dig att synas först i Google Maps."
+      />
+
+      {/* Maps Process */}
+      <Process
+        steps={mapsProcess}
+        title="Så optimerar vi din Maps-position"
+        subtitle="En enkel 3-stegs process som ger resultat"
+      />
+
+      {/* Maps ROI Calculator */}
+      <section className="section bg-surface">
         <div className="container-bk">
           <div className="text-center mb-12">
-            <h2 className="text-h2 text-ink-950 mb-4">Mätbara resultat</h2>
-            <p className="text-lead text-ink-700 max-w-[65ch] mx-auto">
-              Våra kunder ser konkreta resultat inom 30 dagar
+            <h2 className="font-display text-h2 text-ink mb-4">Beräkna din Maps-ROI</h2>
+            <p className="lede mx-auto">
+              Se hur mycket Maps-optimering kan öka din verksamhet
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {kpis.map((kpi, index) => (
-              <KPI key={index} {...kpi} />
-            ))}
+
+          <div className="max-w-2xl mx-auto">
+            <MapsROICalculator />
           </div>
         </div>
       </section>
 
-      <FeatureList
-        features={features}
-        title="Vad ingår i vår Maps-optimering?"
-        subtitle="En komplett lösning för att maximera din synlighet på Google Maps"
-      />
-
-      <Process
-        steps={processSteps}
-        title="Så fungerar det"
-        subtitle="En enkel process från start till resultat"
-      />
-
-      <section className="section">
-        <div className="container-bk">
-          <MapsCallsEstimator />
-        </div>
-      </section>
-
+      {/* Maps Pricing */}
       <Pricing
-        tiers={pricingTiers}
-        title="Enkla, transparenta priser"
-        subtitle="Välj det paket som passar ditt företag bäst"
+        tiers={mapsPricing}
+        title="Välj ditt Maps-paket"
+        subtitle="Flexibla priser som växer med ditt företag"
       />
 
+      {/* Maps FAQ */}
       <FAQ
-        items={faqItems}
-        title="Vanliga frågor"
-        subtitle="Svar på de vanligaste frågorna om vår Maps-optimering"
+        items={mapsFAQ}
+        title="Vanliga frågor om Maps-optimering"
+        subtitle="Svar på de vanligaste frågorna om vår Maps-tjänst"
       />
 
+      {/* Maps CTA */}
       <CTA
-        title="Redo att dominera kartan?"
-        subtitle="Boka en gratis konsultation och låt oss visa hur vi kan hjälpa dig att få fler samtal från Google Maps."
-        cta={{
-          label: 'Boka gratis konsultation',
-          href: '/#kontakt'
-        }}
+        title="Redo att dominera Google Maps?"
+        subtitle="Boka en gratis konsultation idag och låt oss diskutera hur vi kan hjälpa dig att synas först i Maps."
+        ctas={
+          <>
+            <Button variant="primary" size="lg" href="/#kontakt">
+              Boka gratis Maps-konsultation
+            </Button>
+            <Button variant="ghost" size="lg" href="/#tjanster">
+              Läs mer om våra tjänster
+            </Button>
+          </>
+        }
       />
-    </Page>
-  )
+    </main>
+  );
 }

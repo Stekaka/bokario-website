@@ -1,223 +1,225 @@
-import { Page } from '../../../components/Page'
-import { Hero } from '../../../components/sections/Hero'
-import { FeatureList } from '../../../components/sections/FeatureList'
-import { Process } from '../../../components/sections/Process'
-import { Pricing } from '../../../components/sections/Pricing'
-import { FAQ } from '../../../components/sections/FAQ'
-import { CTA } from '../../../components/sections/CTA'
-import { BookingsEstimator } from '../../../components/calculators/BookingsEstimator'
-import { KPI } from '../../../components/KPI'
+"use client";
+
+import { Hero } from "@/components/Hero";
+import { Button } from "@/components/Button";
+import { Stat } from "@/components/Stat";
+import { FeatureList } from "@/components/FeatureList";
+import { Process } from "@/components/Process";
+import { Pricing } from "@/components/Pricing";
+import { FAQ } from "@/components/FAQ";
+import { CTA } from "@/components/CTA";
+import { Card } from "@/components/Card";
+import { MeasurableResults } from "@/components/MeasurableResults";
+import { BookingsROICalculator } from "@/components/calculators/BookingsROICalculator";
 
 export default function BookingsPage() {
-  const features = [
-    {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-        </svg>
-      ),
-      title: 'Funnel-optimering',
-      description: 'Konvertera fler besökare till bokningar med optimerade bokningsflöden och A/B-testning.'
-    },
-    {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
-        </svg>
-      ),
-      title: 'Annonsoptimering',
-      description: 'Maximera din annonsbudget med optimerade Google Ads som konverterar besökare till bokningar.'
-    },
+  const bookingsFeatures = [
     {
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>
       ),
-      title: 'Kalenderintegration',
-      description: 'Sömlös integration med dina befintliga kalendersystem för enkel bokningshantering.'
+      title: 'Smart bokningskalender',
+      description: 'Automatisk synkronisering med din kalender och intelligent tidsbokning som undviker dubbelbokningar.'
+    },
+    {
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+        </svg>
+      ),
+      title: 'Automatisk betalning',
+      description: 'Säker online-betalning med automatisk fakturering och kvitton för en smidig kundupplevelse.'
+    },
+    {
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+      title: 'Kundkommunikation',
+      description: 'Automatiska påminnelser, bekräftelser och uppföljningar som ökar din kundnöjdhet.'
     }
-  ]
+  ];
 
-  const processSteps = [
+  const bookingsProcess = [
     {
       number: 1,
-      title: 'Analys',
-      description: 'Vi analyserar ditt nuvarande bokningsflöde och identifierar förbättringsområden.'
+      title: 'Setup',
+      description: 'Vi konfigurerar ditt bokningssystem med din kalender, tjänster och priser.'
     },
     {
       number: 2,
-      title: 'Optimering',
-      description: 'Vi optimerar ditt bokningsflöde, annonser och kalenderintegration för maximal konvertering.'
+      title: 'Integration',
+      description: 'Vi integrerar med din hemsida och sociala medier för maximal synlighet.'
     },
     {
       number: 3,
-      title: 'Resultat',
-      description: 'Kontinuerlig övervakning och optimering för att maximera dina bokningar.'
+      title: 'Optimering',
+      description: 'Kontinuerlig optimering av bokningsflödet för att maximera konverteringar.'
     }
-  ]
+  ];
 
-  const pricingTiers = [
+  const bookingsPricing = [
     {
-      name: 'Setup',
-      price: '15,000',
-      period: 'engångs',
-      description: 'Enmalig setup av optimerat bokningsflöde',
+      name: 'Starter',
+      price: '1,995',
+      period: '/månad',
+      description: 'Perfekt för mindre företag som vill komma igång med online-bokningar.',
       features: [
-        'Funnel-analys och optimering',
-        'A/B-testning av bokningsflöde',
-        'Kalenderintegration',
-        'Mobiloptimering',
-        'Rapport och rekommendationer'
+        'Grundläggande bokningskalender',
+        'Upp till 100 bokningar/månad',
+        'E-post support',
+        'Grundläggande rapporter',
+        'Mobil-optimerad'
       ],
-      cta: { label: 'Börja nu', href: '/#kontakt' }
+      cta: {
+        label: 'Starta nu',
+        href: '/#kontakt'
+      }
     },
     {
-      name: 'Retainer',
-      price: '5,000',
-      period: 'månad',
-      description: 'Kontinuerlig optimering och support',
+      name: 'Professional',
+      price: '3,995',
+      period: '/månad',
+      description: 'Vår mest populära lösning med avancerade funktioner och support.',
       features: [
-        'Allt i Setup +',
-        'Kontinuerlig A/B-testning',
-        'Annonsoptimering',
-        'Månadsrapport',
+        'Allt i Starter',
+        'Obegränsade bokningar',
+        'Automatisk betalning',
+        'Avancerade rapporter',
         'Prioriterad support',
-        'Resultatgaranti'
+        'Kundkommunikation',
+        'API-integration'
       ],
-      popular: true,
-      cta: { label: 'Välj Retainer', href: '/#kontakt' }
+      recommended: true,
+      cta: {
+        label: 'Välj Professional',
+        href: '/#kontakt'
+      }
     },
     {
-      name: 'Success Fee',
-      price: '20%',
-      period: 'av ökning',
-      description: 'Betala endast för resultat',
+      name: 'Enterprise',
+      price: '5,995',
+      period: '/månad',
+      description: 'Fullständig bokningslösning för stora företag med komplexa behov.',
       features: [
-        'Allt i Retainer +',
-        'Dedikerad strateg',
-        'Veckorapport',
-        '24/7 support',
-        'Betala endast för ökning'
+        'Allt i Professional',
+        'Flera platser',
+        'White-label lösning',
+        'Dedikerad support',
+        'Custom integrationer',
+        'Avancerad analytics',
+        'SLA-garanti'
       ],
-      cta: { label: 'Kontakta oss', href: '/#kontakt' }
+      cta: {
+        label: 'Kontakta oss',
+        href: '/#kontakt'
+      }
     }
-  ]
+  ];
 
-  const faqItems = [
+  const bookingsFAQ = [
     {
-      question: 'Hur snart ser jag fler bokningar?',
-      answer: 'De flesta kunder ser förbättringar inom 2-4 veckor, med fulla resultat efter 1-2 månader.'
+      question: 'Hur snabbt kan jag komma igång?',
+      answer: 'Du kan komma igång med ditt bokningssystem inom 24 timmar. Vi hjälper dig med all setup och integration.'
     },
     {
-      question: 'Vad händer om jag inte får 20 bokningar på 30 dagar?',
-      answer: 'Vi erbjuder en garanti: 20 nya bokningar på 30 dagar – annars pausar vi vår avgift.'
+      question: 'Kan jag använda min befintliga kalender?',
+      answer: 'Absolut! Vi integrerar med Google Calendar, Outlook, Apple Calendar och de flesta andra kalendersystem.'
     },
     {
-      question: 'Behöver jag ha Google Ads?',
-      answer: 'Nej, vi kan optimera ditt befintliga bokningsflöde. Google Ads är valfritt men rekommenderas.'
+      question: 'Vad händer om jag inte är nöjd?',
+      answer: 'Vi erbjuder en 30-dagars pengarna-tillbaka-garanti. Om du inte är nöjd, får du dina pengar tillbaka.'
     },
     {
-      question: 'Kan ni integrera med min befintliga kalender?',
-      answer: 'Ja, vi kan integrera med de flesta kalendersystem som Google Calendar, Outlook, och specialiserade bokningssystem.'
-    },
-    {
-      question: 'Vad kostar det att komma igång?',
-      answer: 'Setup-kostnaden är 15,000 kr engångs, sedan 5,000 kr/månad för kontinuerlig optimering.'
+      question: 'Kan ni hjälpa med integration på min hemsida?',
+      answer: 'Ja! Vi hjälper dig att integrera bokningssystemet på din hemsida, Facebook, Instagram och andra kanaler.'
     }
-  ]
-
-  const kpis = [
-    {
-      value: '+60%',
-      label: 'Fler bokningar',
-      description: 'Genomsnittlig ökning av bokningar',
-      trend: { value: 60, isPositive: true }
-    },
-    {
-      value: '+40%',
-      label: 'Bättre CVR',
-      description: 'Genomsnittlig förbättring av konverteringsgrad',
-      trend: { value: 40, isPositive: true }
-    },
-    {
-      value: '-30%',
-      label: 'Lägre CPC',
-      description: 'Genomsnittlig minskning av kostnad per klick',
-      trend: { value: 30, isPositive: true }
-    }
-  ]
+  ];
 
   return (
-    <Page title="Bokningsoptimering - Bokario">
+    <main id="main">
       <Hero
-        tagline="20 nya bokningar på 30 dagar"
-        lead="Vi gör tider till intäkter – från annons till kalender. Annars pausar vi vår avgiften."
-        primaryCTA={{
-          label: 'Boka gratis konsultation',
-          href: '/#kontakt'
-        }}
-        secondaryCTA={{
-          label: 'Se våra priser',
-          href: '/bookings/pris'
-        }}
+        title="Konvertera besökare till bokningar."
+        sub="Automatisera ditt bokningsflöde med smarta kalendrar, online-betalningar och kundkommunikation. Öka din konvertering och spara tid."
+        align="center"
+        trustText="Trusted by 300+ Swedish businesses for booking automation"
+        ctas={
+          <>
+            <Button variant="primary" size="lg" href="/#kontakt">
+              Boka gratis boknings-demo
+            </Button>
+            <Button variant="ghost" size="lg" href="/#tjanster">
+              Se våra bokningslösningar
+            </Button>
+          </>
+        }
       />
 
-      <section className="section">
+      {/* Bookings Conversion Stats */}
+      <MeasurableResults />
+
+      {/* Bookings Features */}
+      <FeatureList
+        features={bookingsFeatures}
+        title="Varför välja vårt bokningssystem?"
+        subtitle="Vi kombinerar enkelhet med kraftfulla funktioner för att maximera din bokningskonvertering."
+      />
+
+      {/* Bookings Process */}
+      <Process
+        steps={bookingsProcess}
+        title="Så implementerar vi ditt bokningssystem"
+        subtitle="En enkel 3-stegs process som ger resultat"
+      />
+
+      {/* Bookings Conversion Calculator */}
+      <section className="section bg-surface">
         <div className="container-bk">
           <div className="text-center mb-12">
-            <h2 className="text-h2 text-ink-950 mb-4">Mätbara resultat</h2>
-            <p className="text-lead text-ink-700 max-w-[65ch] mx-auto">
-              Våra kunder ser konkreta resultat inom 30 dagar
+            <h2 className="font-display text-h2 text-ink mb-4">Beräkna din boknings-ROI</h2>
+            <p className="lede mx-auto">
+              Se hur mycket ett bokningssystem kan öka din verksamhet
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {kpis.map((kpi, index) => (
-              <KPI key={index} {...kpi} />
-            ))}
+
+          <div className="max-w-2xl mx-auto">
+            <BookingsROICalculator />
           </div>
         </div>
       </section>
 
-      <FeatureList
-        features={features}
-        title="Vad ingår i vår bokningsoptimering?"
-        subtitle="En komplett lösning för att maximera dina bokningar"
-      />
-
-      <Process
-        steps={processSteps}
-        title="Så fungerar det"
-        subtitle="En enkel process från start till resultat"
-      />
-
-      <section className="section">
-        <div className="container-bk">
-          <BookingsEstimator />
-        </div>
-      </section>
-
+      {/* Bookings Pricing */}
       <Pricing
-        tiers={pricingTiers}
-        title="Enkla, transparenta priser"
-        subtitle="Välj det paket som passar ditt företag bäst"
+        tiers={bookingsPricing}
+        title="Välj ditt bokningspaket"
+        subtitle="Flexibla priser som växer med ditt företag"
       />
 
+      {/* Bookings FAQ */}
       <FAQ
-        items={faqItems}
-        title="Vanliga frågor"
-        subtitle="Svar på de vanligaste frågorna om vår bokningsoptimering"
+        items={bookingsFAQ}
+        title="Vanliga frågor om bokningssystem"
+        subtitle="Svar på de vanligaste frågorna om våra bokningslösningar"
       />
 
+      {/* Bookings CTA */}
       <CTA
-        title="Redo att få fler bokningar?"
-        subtitle="Boka en gratis konsultation och låt oss visa hur vi kan hjälpa dig att öka dina bokningar."
-        cta={{
-          label: 'Boka gratis konsultation',
-          href: '/#kontakt'
-        }}
+        title="Redo att automatisera dina bokningar?"
+        subtitle="Boka en gratis demo idag och låt oss visa hur vi kan hjälpa dig att öka din bokningskonvertering."
+        ctas={
+          <>
+            <Button variant="primary" size="lg" href="/#kontakt">
+              Boka gratis boknings-demo
+            </Button>
+            <Button variant="ghost" size="lg" href="/#tjanster">
+              Läs mer om våra lösningar
+            </Button>
+          </>
+        }
       />
-    </Page>
-  )
+    </main>
+  );
 }

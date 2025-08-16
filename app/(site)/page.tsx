@@ -1,11 +1,12 @@
-import { Page } from '@/components/Page'
-import { Hero } from '@/components/sections/Hero'
-import { LogoRow } from '@/components/LogoRow'
-import { KPI } from '@/components/KPI'
-import { FeatureList } from '@/components/sections/FeatureList'
-import { Process } from '@/components/sections/Process'
-import { Testimonial } from '@/components/sections/Testimonial'
-import { CTA } from '@/components/sections/CTA'
+"use client";
+
+import { Hero } from '@/components/Hero';
+import { Button } from '@/components/Button';
+import { FeatureList } from '@/components/FeatureList';
+import { Process } from '@/components/Process';
+import { CTA } from '@/components/CTA';
+import { LogoRow } from '@/components/LogoRow';
+import { MeasurableResults } from '@/components/MeasurableResults';
 
 export default function HomePage() {
   const features = [
@@ -37,7 +38,7 @@ export default function HomePage() {
       title: 'Bokningar (Bookings)',
       description: 'Konvertera besökare till bokningar med optimerade bokningsflöden och kalenderintegration.'
     }
-  ]
+  ];
 
   const processSteps = [
     {
@@ -55,79 +56,38 @@ export default function HomePage() {
       title: 'Resultat',
       description: 'Vi övervakar, analyserar och optimerar kontinuerligt för att säkerställa att du får de bästa resultaten.'
     }
-  ]
-
-  const kpis = [
-    {
-      value: '+25%',
-      label: 'Fler samtal',
-      description: 'Genomsnittlig ökning av samtal från Maps',
-      trend: { value: 25, isPositive: true }
-    },
-    {
-      value: '+40%',
-      label: 'Fler recensioner',
-      description: 'Genomsnittlig ökning av recensioner',
-      trend: { value: 40, isPositive: true }
-    },
-    {
-      value: '+60%',
-      label: 'Fler bokningar',
-      description: 'Genomsnittlig ökning av bokningar',
-      trend: { value: 60, isPositive: true }
-    },
-    {
-      value: '4.8/5',
-      label: 'Kundnöjdhet',
-      description: 'Genomsnittligt kundbetyg',
-      trend: { value: 96, isPositive: true }
-    }
-  ]
+  ];
 
   return (
-    <Page title="Bokario - Hem">
+    <main id="main">
       <Hero
-        tagline="Från klick till kalender."
-        lead="Vi sköter kartan, omdömena och bokningarna åt dig – mätbara resultat utan krångel."
-        primaryCTA={{
-          label: 'Boka demo',
-          href: '/#kontakt'
-        }}
-        secondaryCTA={{
-          label: 'Se våra tjänster',
-          href: '/#tjanster'
-        }}
+        title="Från klick till kalender."
+        sub="Vi sköter kartan, omdömena och bokningarna åt dig – mätbara resultat utan krångel."
+        align="center"
+        trustText="Trusted by 500+ Swedish businesses"
+        ctas={
+          <>
+            <Button variant="primary" size="lg" href="/booking">
+              Boka demo
+            </Button>
+            <Button variant="ghost" size="lg" href="/#tjanster">
+              Se våra tjänster
+            </Button>
+          </>
+        }
       />
 
-      <LogoRow title="Företag som litar på oss">
-        <div className="text-2xl font-bold text-ink-300">LOGO 1</div>
-        <div className="text-2xl font-bold text-ink-300">LOGO 2</div>
-        <div className="text-2xl font-bold text-ink-300">LOGO 3</div>
-        <div className="text-2xl font-bold text-ink-300">LOGO 4</div>
-        <div className="text-2xl font-bold text-ink-300">LOGO 5</div>
-      </LogoRow>
+      <LogoRow />
 
-      <section className="py-16 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-950 mb-4">Mätbara resultat</h2>
-            <p className="text-lg md:text-xl text-ink-700 max-w-[65ch] mx-auto">
-              Våra kunder ser konkreta resultat inom 30 dagar
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {kpis.map((kpi, index) => (
-              <KPI key={index} {...kpi} />
-            ))}
-          </div>
-        </div>
+      <MeasurableResults />
+
+      <section id="tjanster" className="section">
+        <FeatureList
+          features={features}
+          title="Tre pelare för framgång"
+          subtitle="Vi hjälper dig att bygga en komplett digital närvaro som genererar resultat"
+        />
       </section>
-
-      <FeatureList
-        features={features}
-        title="Tre pelare för framgång"
-        subtitle="Vi hjälper dig att bygga en komplett digital närvaro som genererar resultat"
-      />
 
       <Process
         steps={processSteps}
@@ -135,45 +95,57 @@ export default function HomePage() {
         subtitle="En enkel process från start till resultat"
       />
 
-      <section className="py-16 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-950 mb-4">Kundberättelser</h2>
-            <p className="text-lg md:text-xl text-ink-700 max-w-[65ch] mx-auto">
-              Se vad våra kunder säger om resultaten
-            </p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            <Testimonial
-              quote="Bokario hjälpte oss att öka våra bokningar med 40% på bara 2 månader. Fantastiskt team!"
-              author="Anna Andersson"
-              company="Frisörsalong Vackert"
-              rating={5}
-            />
-            <Testimonial
-              quote="Våra Google-reviews har ökat dramatiskt och vi får fler kunder än någonsin."
-              author="Erik Eriksson"
-              company="Bilverkstad Express"
-              rating={5}
-            />
-            <Testimonial
-              quote="Professionell service med mätbara resultat. Rekommenderas varmt!"
-              author="Maria Nilsson"
-              company="Städfirma Rent"
-              rating={5}
-            />
-          </div>
-        </div>
-      </section>
-
       <CTA
         title="Redo att ta ditt företag till nästa nivå?"
         subtitle="Boka en gratis konsultation idag och låt oss diskutera hur vi kan hjälpa dig att uppnå dina mål."
-        cta={{
-          label: 'Boka gratis konsultation',
-          href: '/#kontakt'
-        }}
+        ctas={
+          <>
+            <Button variant="primary" size="lg" href="/booking">
+              Boka gratis konsultation
+            </Button>
+            <Button variant="ghost" size="lg" href="/#tjanster">
+              Läs mer
+            </Button>
+          </>
+        }
       />
-    </Page>
-  )
+
+      {/* Contact Section */}
+      <section id="kontakt" className="section bg-surface/30">
+        <div className="container-bk">
+          <div className="text-center mb-12">
+            <h2 className="text-h2 text-ink mb-4">Kontakta oss</h2>
+            <p className="text-lg text-ink-dim max-w-2xl mx-auto">
+              Redo att komma igång? Låt oss diskutera hur vi kan hjälpa dig att uppnå dina mål.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="bg-surface/50 border border-white/10 rounded-card p-8">
+              <h3 className="text-xl font-semibold text-ink mb-4">Boka Demo</h3>
+              <p className="text-ink-dim mb-6">
+                Se hur våra lösningar fungerar i praktiken med en personlig demo.
+              </p>
+              <Button variant="primary" size="lg" href="/booking">
+                Boka Demo
+              </Button>
+            </div>
+            
+            <div className="bg-surface/50 border border-white/10 rounded-card p-8">
+              <h3 className="text-xl font-semibold text-ink mb-4">Kontakt</h3>
+              <p className="text-ink-dim mb-6">
+                Har du frågor? Vi finns här för att hjälpa dig.
+              </p>
+              <div className="space-y-2 text-ink-dim">
+                <p>📧 hej@bokario.se</p>
+                <p>📱 +46-70-123-45-67</p>
+                <p>📍 Stockholm, Sverige</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
 }
+

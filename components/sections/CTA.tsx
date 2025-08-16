@@ -36,7 +36,6 @@ export function CTA({ title, subtitle, cta, secondaryCTA, className = '' }: CTAP
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button 
-            as="a" 
             href={cta.href} 
             size="lg"
             data-cta="cta-primary"
@@ -46,7 +45,6 @@ export function CTA({ title, subtitle, cta, secondaryCTA, className = '' }: CTAP
           {secondaryCTA && (
             <Button 
               variant="ghost" 
-              as="a" 
               href={secondaryCTA.href} 
               size="lg"
               data-cta="cta-secondary"
